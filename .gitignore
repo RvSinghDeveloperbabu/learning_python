@@ -36,3 +36,4 @@ media/
 *.swp
 .idea/
 # .vscode/ intentionally not ignored — you may want to share workspace settings
+MyNotes/
