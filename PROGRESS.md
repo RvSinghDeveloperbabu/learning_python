@@ -2,9 +2,9 @@
 
 > **Mentor:** read this at the **start** of every session (CLAUDE.md §5.1) and update it at the **end** (§5.6, §10). This is the memory that makes the 10 weeks a coherent arc. Log honestly — including reveals and recurring gaps — even when unflattering.
 
-**Status:** 🟡 Not started — Week 0 (setup)
-**Started:** _(fill on day 1)_
-**Current focus:** toolchain setup + `foundations/` kickoff
+**Status:** 🟢 In progress — Week 0 (setup) · 3/4 done
+**Started:** 2026-07-13
+**Current focus:** finish Week 0 (submit application #1), then `foundations/` kickoff (Weeks 1–2)
 **Target:** 10 weeks · 3–4 hrs/day · ~30% reading / 70% writing
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cut/skipped (swing item)
@@ -12,9 +12,9 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cut/skipped (swin
 ---
 
 ## Week 0 — Setup + apply now (2–3 days)
-- [ ] Confirm Python 3.12+ working
-- [ ] Install `uv`; create a throwaway venv, install a package, run a script (prove the toolchain)
-- [ ] VS Code + Python + Pylance working
+- [x] Confirm Python 3.12+ working — 3.13.14 (2026-07-13)
+- [x] Install `uv`; create a throwaway venv, install a package, run a script (prove the toolchain) — `uv-scratch` project + httpx, isolation shown by import failing outside the project (2026-07-13)
+- [x] VS Code + Python + Pylance working — interpreter on `.venv`, `httpx.` autocompletes from package docstrings (2026-07-13)
 - [ ] **Apply to "LLM Trainer – Agent Function Call" role** (don't wait for the plan to finish)
 - **Deliverable:** working env + one application submitted
 
@@ -76,11 +76,12 @@ _(newest first — the mentor appends one entry per session)_
 
 | Date | Week/Day | Worked on | Shipped | Interview Qs (verdict) | Notes |
 |---|---|---|---|---|---|
+| 2026-07-13 | 0 | Toolchain setup — Python 3.13.14, `uv` project + httpx isolation proof, VS Code + Pylance verified | Working env (3/4 Week-0 criteria); throwaway `uv-scratch` proof | — (setup day; none run yet) | Recurring gap logged: declares "done" before verifying (×2). Picked up `main()` + `if __name__` guard fast. |
 | — | 0 | _not started_ | — | — | tracker created |
 
 ## 🔁 Recurring gaps to watch
 _(the mentor names patterns here and resurfaces them in reviews + interviews — §10)_
-- _(none logged yet)_
+- **Declares "done" before verifying** — Week 0 (2026-07-13), seen ×2: ran the `uv init` stub and called it a package test before adding `import httpx`; called Pylance "done" at extension-install before checking interpreter/autocomplete. "Installed/ran" ≠ "verified passing" — and that exact distinction *is* the LLM-eval/repo-validation job. Resurface in every review: make him state *how* he'll verify before he claims done.
 
 ## 🔓 Override-phrase / reveal log
 _(every Rung-5 reveal logged honestly — §3; 2 overrides on one task ⇒ under-practicing signal)_
@@ -88,4 +89,5 @@ _(every Rung-5 reveal logged honestly — §3; 2 overrides on one task ⇒ under
 
 ## 🎤 Interview performance by topic
 _(strong / passable / weak, with the specific gap — §6)_
-- _(none yet)_
+- **Import resolution / venvs** — 2026-07-13 — *passable (leaning weak)*: had the isolation intuition but couldn't name the mechanism (`sys.path` search → `site-packages`; a venv swaps which `site-packages` is on the path). Re-ask.
+- **`__name__` / `__main__` guard** — 2026-07-13 — *weak (no answer)*: brand-new idiom; gave model answer + Ruby `__FILE__ == $0` anchor. Re-ask in a later mock.
