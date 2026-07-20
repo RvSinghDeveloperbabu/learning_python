@@ -7,7 +7,7 @@ A single, coherent product built in six standalone pieces. Each project is indep
 ## How to read this document
 
 - **Six projects, each with the full 12-section spec.** MVP (must-build) vs STRETCH (senior bonus) is marked in every project so you can ship even when time is tight.
-- **The schedule is honest (see below): this is a 10-week plan, not 8.** Two items are pre-designated "cut if behind" swing items so the portfolio still lands if you overrun.
+- **This document does not own the schedule.** Week assignments live in [`../Ravi_Python_LLM_Learning_Plan.md`](../Ravi_Python_LLM_Learning_Plan.md), the single source of truth. What lives here are the honest **per-project day estimates** (below) that the schedule is built from, plus the pre-designated "cut if behind" items.
 - **All acceptance criteria are self-verifiable** by you (behavior, tests pass, `mypy` clean, endpoints return X, edge case Y handled) — no dependency on anyone writing code for you.
 
 ---
@@ -33,20 +33,22 @@ You are building the components of a realistic **LLM Evaluation & Agent Platform
 
 ---
 
-## The honest schedule (10 weeks, with swing items)
+## Honest day estimates (what the schedule is built from)
 
-The original week labels over-allocated the budget by roughly 40% (they consumed weeks 1–8 with *zero* weeks for Flask, and several projects' own day-estimates exceeded their one-week labels). Committing to a realistic schedule up front is itself a senior signal:
+> **Week assignment lives in [`../Ravi_Python_LLM_Learning_Plan.md`](../Ravi_Python_LLM_Learning_Plan.md).** This section owns only the *cost* of each project, never its calendar slot. If a week number appears anywhere in this document, it is stale — report it.
 
-| Weeks | Project | Notes |
+The original 8-week labels over-allocated the budget by roughly 40% (they left *zero* time for Flask, and several projects' own day-estimates exceeded their one-week labels). Committing to realistic estimates up front is itself a senior signal:
+
+| Project | MVP days (3–4 hrs/day) | Notes |
 |---|---|---|
-| 1–2 | **P1 — evalctl** | Cheap foundation. Also produces the shared contract (below). |
-| 3 | **P2 — Flask ingestion** | **SWING ITEM #1.** Tight 3–4 day core. If behind, drop it and fold its HMAC + idempotency signals into P4's stretch webhook endpoint. |
-| 4–5 | **P3 — Django core** | Deepest ORM signal; genuinely a 2.5–3 week project. |
-| 6 | **P4 — FastAPI gateway** | **SWING ITEM #2 lives here:** the OpenAI adapter is stretch; MVP ships Anthropic + a fake adapter. |
-| 7–8 | **P5 — agent-cli** | Differentiator. `apply_patch` is the internal cut line. |
-| 9–10 | **P6 — eval-harness** | Flagship / centerpiece. |
+| **P1 — evalctl** | ~10 | Cheap foundation. Also produces the shared contract (below). |
+| **P2 — Flask ingestion** | ~6 | Realistically 5–6 days for someone new to SQLAlchemy 2.0 + Alembic, not the 2.5–3 an earlier draft claimed. |
+| **P3 — Django core** | ~12 trimmed (14–16 at full depth) | Deepest ORM signal; genuinely a 2.5–3 week project if nothing is cut. |
+| **P4 — FastAPI gateway** | ~9 | **SWING ITEM:** the OpenAI adapter is stretch; MVP ships Anthropic + a fake adapter. |
+| **P5 — agent-cli** | ~10 | Differentiator. `apply_patch` is the internal cut line. |
+| **P6 — eval-harness** | ~13 trimmed (14–16 at full depth) | Flagship / centerpiece. |
 
-**Alternative (recommended if time is genuinely tight):** cut to five pillars — P1, P3, P5, P6, plus **one** service slot (FastAPI wins: async is the newest muscle and most on-theme). Drop standalone Flask and fold its crown-jewel signals (HMAC-over-raw-bytes verification + the idempotency decision matrix) into P4 as a stretch webhook endpoint. That reclaims 5–8 days and removes the redundant third web framework. This document keeps all six so you have the option, but treat Flask as the first thing to cut.
+**A note on Flask (supersedes earlier drafts).** Previous versions of this document designated Flask "the first thing to cut" and suggested folding it into P4. That is **superseded**: Flask is now the **first web framework taught**, so it cannot also be the first thing dropped. If the schedule genuinely fails, the honest choices are a Flask *depth* cut (a 3-day tour — routing, blueprints, one signed endpoint) **or** Django losing a week. The full ordered cut-line list lives in the plan file.
 
 ---
 
@@ -69,7 +71,7 @@ P4 and P5 both normalize Anthropic + OpenAI, so **split the responsibility delib
 
 - **P4 owns throughput/cost/fan-out** (bounded concurrency, retries, cost accounting).
 - **P5 owns the tool-use loop** (message-history reconstruction, tool schemas, stop conditions).
-- The **normalized message/response model is shared learning** — ideally the same small internal package consumed by both. Build it once in whichever you tackle first (P4, chronologically) and reuse it in P5.
+- The **normalized message/response model is shared learning** — ideally the same small internal package consumed by both. **Ordering rule:** whichever of P4/P5 you build first owns that model; the other imports it. (Under the current schedule P4 comes first — but write it so the *rule*, not the calendar, decides. This sentence has now survived two reschedules by luck.)
 
 Likewise, **P5's `run_tests` sandbox and P6's Docker sandbox are different isolation models** (in-process subprocess jail vs. a full hermetic container). Flag them as *reuse of instinct, not code* — don't rebuild P6's container lifecycle inside P5.
 
@@ -98,16 +100,16 @@ Reviewers probe headline claims first; these three were false or soft in the dra
 
 ## Table of contents
 
-1. [Project 1 — `evalctl`: Typed, streaming CLI for eval data (Weeks 1–2)](#project-1--evalctl-typed-streaming-cli-for-eval-data-weeks-12)
-2. [Project 2 — Flask Eval Results Ingestion & Webhook Service (Week 3, swing)](#project-2--flask-eval-results-ingestion--webhook-service-week-3-swing)
-3. [Project 3 — Django Eval Platform Core Backend (Weeks 4–5)](#project-3--django-eval-platform-core-backend-weeks-45)
-4. [Project 4 — FastAPI Async Eval Runner / LLM Gateway (Week 6)](#project-4--fastapi-async-eval-runner--llm-gateway-week-6)
-5. [Project 5 — `agent-cli`: Provider-Agnostic Function-Calling Agent (Weeks 7–8)](#project-5--agent-cli-provider-agnostic-function-calling-agent-weeks-78)
-6. [Project 6 — `eval-harness`: Mini SWE-bench-Style Evaluation Harness (Weeks 9–10, flagship)](#project-6--eval-harness-mini-swe-bench-style-evaluation-harness-weeks-910-flagship)
+1. [Project 1 — `evalctl`: Typed, streaming CLI for eval data](#project-1--evalctl-typed-streaming-cli-for-eval-data)
+2. [Project 2 — Flask Eval Results Ingestion & Webhook Service](#project-2--flask-eval-results-ingestion--webhook-service)
+3. [Project 3 — Django Eval Platform Core Backend](#project-3--django-eval-platform-core-backend)
+4. [Project 4 — FastAPI Async Eval Runner / LLM Gateway](#project-4--fastapi-async-eval-runner--llm-gateway)
+5. [Project 5 — `agent-cli`: Provider-Agnostic Function-Calling Agent](#project-5--agent-cli-provider-agnostic-function-calling-agent)
+6. [Project 6 — `eval-harness`: Mini SWE-bench-Style Evaluation Harness (flagship)](#project-6--eval-harness-mini-swe-bench-style-evaluation-harness-flagship)
 
 ---
 
-# Project 1 — `evalctl`: Typed, streaming CLI for eval data (Weeks 1–2)
+# Project 1 — `evalctl`: Typed, streaming CLI for eval data
 
 *Folder: `foundations/` (installs as `evalctl`)*
 
@@ -283,7 +285,7 @@ Layered so the core logic is pure and testable, and I/O + CLI live at the edges.
 
 ---
 
-# Project 2 — Flask Eval Results Ingestion & Webhook Service (Week 3, swing)
+# Project 2 — Flask Eval Results Ingestion & Webhook Service
 
 *Folder: `flask-app/`*
 
@@ -491,11 +493,11 @@ Sized to ~3–4 hrs/day, **budgeted honestly at 5–6 days for the MVP** (M0–M
 
 ---
 
-# Project 3 — Django Eval Platform Core Backend (Weeks 4–5)
+# Project 3 — Django Eval Platform Core Backend
 
 *Folder: `django-app/` · Django + DRF · The system of record for the whole platform*
 
-> **Relabeled to Weeks 4–5** (honest: internally 14–16 days). This is a 2.5–3 week project; the schedule reflects it.
+> **Honest sizing (applied):** internally **14–16 days** at full depth, ~12 trimmed. This is a 2.5–3 week project; the plan file's slot reflects it.
 
 ### 1. Premise
 
@@ -600,7 +602,7 @@ Organization ─<Membership>─ User
 
 ### 6. Milestone breakdown
 
-Sized to 3–4 hrs/day; ~14–16 days across Weeks 4–5. MVP lands at M6.
+Sized to 3–4 hrs/day; ~14–16 days at full depth (~12 if M7–M9 are trimmed). MVP lands at M6.
 
 - **M1 — Skeleton & tooling (1 day).** `uv` project, Django + DRF, Postgres via compose, settings split (base/dev/test), ruff + mypy + pytest-django, a health endpoint + one passing test. **Custom User decided now.**
 - **M2 — Core schema & migrations (2 days).** Organization, Membership, Project, EvalSuite, TestCase, ModelConfig. Reversible migrations. `__str__`, Meta ordering, `unique_together`/constraints. factory_boy factories.
@@ -673,7 +675,7 @@ Sized to 3–4 hrs/day; ~14–16 days across Weeks 4–5. MVP lands at M6.
 
 ---
 
-# Project 4 — FastAPI Async Eval Runner / LLM Gateway (Week 6)
+# Project 4 — FastAPI Async Eval Runner / LLM Gateway
 
 *Folder: `fastapi-app/`*
 
@@ -777,7 +779,7 @@ You're building the **LLM Gateway** the rest of the platform calls instead of hi
 - **uv**; **pytest**, **pytest-asyncio**, **respx** (mock provider HTTP), **polyfactory**, **testcontainers**/async-sqlite, **freezegun**.
 - **Docker** (multi-stage) + **docker-compose** + **uvicorn** (behind **gunicorn** with uvicorn workers in prod).
 
-### 6. Milestone breakdown (Week 6; with explicit risk buffer)
+### 6. Milestone breakdown (with explicit risk buffer)
 
 > **Risk-buffer note (applied):** **M5 (async SQLAlchemy + async Alembic) is the highest-risk day** — no-lazy-load discipline and async `env.py` config eat a day+ for a newcomer. **Front-load M5 and give it a buffer day**; discover greenlet errors on day 2, not day 6.
 
@@ -858,7 +860,7 @@ You're building the **LLM Gateway** the rest of the platform calls instead of hi
 
 ---
 
-# Project 5 — `agent-cli`: Provider-Agnostic Function-Calling Agent (Weeks 7–8)
+# Project 5 — `agent-cli`: Provider-Agnostic Function-Calling Agent
 
 *Folder: `llm/agent-cli/`*
 
@@ -961,7 +963,7 @@ Two normalization traps to handle explicitly (both get dedicated headline tests)
 
 ### 6. Milestone breakdown
 
-~3–4 hrs/day over ~10–12 working days (Weeks 7–8). Each milestone is independently demoable.
+~3–4 hrs/day over ~10–12 working days. Each milestone is independently demoable.
 
 - **M1 — Skeleton + provider protocol (Days 1–2).** uv project, Typer CLI, `RunConfig`, structlog console+JSON, the `Provider` protocol, and a *no-tools* one-shot on **both** providers. **Import/reuse P4's normalized model here.**
 - **M2 — Tool registry + schema generation (Days 2–3).** Tool interface (Pydantic model + handler + metadata). Implement `read_file` and `search_code` (read-only). Registry emits Anthropic-shaped and OpenAI-shaped schemas. `agent tools list`.
@@ -1036,7 +1038,7 @@ Two normalization traps to handle explicitly (both get dedicated headline tests)
 
 ---
 
-# Project 6 — `eval-harness`: Mini SWE-bench-Style Evaluation Harness (Weeks 9–10, flagship)
+# Project 6 — `eval-harness`: Mini SWE-bench-Style Evaluation Harness (flagship)
 
 *Folder: `llm/eval-harness/`*
 
@@ -1169,7 +1171,7 @@ Dataset 1──*  Task 1──*  Run 1──*  TestResult
 
 ### 6. Milestone breakdown
 
-~14–16 working days at 3–4 hrs/day (Weeks 9–10). MVP is M1–M7; 8–9 are stretch.
+~14–16 working days at 3–4 hrs/day (~13 trimmed). MVP is M1–M7; 8–9 are stretch.
 
 > **Risk-buffer note (applied):** **M2 (Docker lifecycle) and M4 (resource limits/timeouts) hide multi-day yak-shaves** on macOS Docker. Give each an explicit buffer.
 
@@ -1252,10 +1254,10 @@ In the README, include: architecture diagram, the verdict/error taxonomy table, 
 - **Running untrusted code without network/privilege limits.** Set the security posture early — it's a selling point.
 - **Silent dependency-install failures.** A non-zero setup step is `ERROR (setup_failed)`; capture its log.
 
-**File location (absolute):** `/Users/ravikumar/Desktop/MyWorkspace/workspace/study/python_learning/llm/eval-harness/` with its own `pyproject.toml`, `README.md`, `datasets/` (each task vendoring a lockfile), `src/eval_harness/`, `tests/` (with a `@pytest.mark.docker` integration subset), and a `runs/` artifacts directory.
+**File location (absolute):** `/Users/ravikumar/Desktop/workspace/workspace/study/python_learning/llm/eval-harness/` with its own `pyproject.toml`, `README.md`, `datasets/` (each task vendoring a lockfile), `src/eval_harness/`, `tests/` (with a `@pytest.mark.docker` integration subset), and a `runs/` artifacts directory.
 
 ---
 
 ## Closing note on shipping
 
-Build in priority order under time pressure: **P6 and P5 are non-negotiable**, **P1** is the cheap foundation and the home of the shared `contracts/`, and the web-framework slots (**P2 Flask, then P4's OpenAI adapter**) are the designated swing items. Ship every project's MVP before touching any stretch. If week 8 arrives and P6 hasn't started, cut P2 entirely and fold its HMAC + idempotency signals into P4's stretch webhook endpoint — that keeps the flagship on schedule while preserving the security signal. Name your tradeoffs in every README: that is the loudest senior signal in the whole portfolio.
+Build in priority order under time pressure: **P6 and P5 are non-negotiable**, **P1** is the cheap foundation and the home of the shared `contracts/`, and **P4's OpenAI adapter** is the designated swing item. Ship every project's MVP before touching any stretch. **At the plan file's mid-point checkpoint, if P6 hasn't started and you are more than 5 days behind, execute the plan's cut lines 1–4 immediately** — never let the flagship absorb the slippage. (Earlier drafts said "cut P2 Flask entirely" here; that is **superseded** — Flask is now the first web framework taught, so it depth-cuts rather than disappears.) Name your tradeoffs in every README: that is the loudest senior signal in the whole portfolio.

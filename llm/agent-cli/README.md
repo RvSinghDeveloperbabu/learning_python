@@ -1,4 +1,4 @@
-# llm/agent-cli/ — function-calling agent  (Weeks 7–8)
+# llm/agent-cli/ — function-calling agent  (Weeks 11–12)
 
 **Premise:** a provider-agnostic command-line **agent** that *acts* on repositories under guardrails, using real tools. It implements the full tool-use loop by hand — define JSON-schema tools → the model requests a call → I execute it → feed the result back → loop — with proper stop conditions.
 
@@ -17,4 +17,4 @@
 
 **I scaffold this myself** (`uv init`, structure). Mentor guides, doesn't author.
 
-➡️ Full spec: [`../../docs/02-real-world-projects.md`](../../docs/02-real-world-projects.md) · Curriculum: [`../../docs/05-curriculum-weeks-5-8.md`](../../docs/05-curriculum-weeks-5-8.md)
+➡️ Full spec: [`../../docs/02-real-world-projects.md`](../../docs/02-real-world-projects.md) · Curriculum: [`../../docs/05-curriculum-llm-and-flagship.md`](../../docs/05-curriculum-llm-and-flagship.md)

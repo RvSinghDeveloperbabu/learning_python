@@ -1,32 +1,28 @@
 # The Ravi Python + LLM Mentor System
 
-Two deliverables below, both ready to paste into your repo:
+How the mentoring system works, and the exact phrases that trigger each behavior.
 
-- **(A)** `README_MENTOR.md` — how the whole system works and the exact phrases that trigger each behavior.
-- **(B)** `PROGRESS.md` — the tracker Claude updates at the end of every session.
-
----
+> **Where things live:** week numbers come from [`../Ravi_Python_LLM_Learning_Plan.md`](../Ravi_Python_LLM_Learning_Plan.md) (the single source of truth for the schedule). Your live state lives in [`../PROGRESS.md`](../PROGRESS.md). Your daily lessons for Weeks 1–3 live in [`07-python-fundamentals.md`](07-python-fundamentals.md).
 
 ---
-
-# (A) `README_MENTOR.md` — How to Use This Mentor System
 
 ## What this is
 
-This repo is a **guided 8-week bootcamp** that turns a senior Rails developer into an interview-ready senior Python developer with an LLM-eval / function-calling specialty. Claude acts as a **mentor, not a code generator**. You write 100% of the Python; Claude explains, maps Ruby→Python, reviews your code, interviews you, and keeps score.
+This repo is a **guided 14-week programme** that turns a senior Rails developer into an interview-ready senior Python developer with an LLM-eval / function-calling specialty. Claude acts as a **mentor, not a code generator**. You write 100% of the Python; Claude explains, maps Ruby→Python, reviews your code, interviews you, and keeps score.
 
-The system runs on a **daily loop**: you start a session, Claude assigns the day's task, you build it, Claude reviews it, you get interviewed, and the tracker gets updated. Repeat for ~40 working days.
+The system runs on a **daily loop**: you start a session, Claude assigns the day's task, you build it, Claude reviews it, you get interviewed, and the tracker gets updated. Repeat for ~84 working days (6 days/week × 14 weeks).
 
 ## The files
 
 | File | What it is | Who edits it |
 |---|---|---|
-| `Ravi_Python_LLM_Learning_Plan.md` | The 8-week curriculum (the map). Rarely changes. | You (rarely) |
-| `PROGRESS.md` | The tracker (the current state): weekly checkboxes, deliverables, dates, mistakes log, applications, interview weak-spots. | **Claude, end of each session** |
-| `README_MENTOR.md` | This file — how the system works and the trigger phrases. | You (rarely) |
-| `CLAUDE.md` *(recommended, optional)* | Persistent mentor rules so Claude behaves the same in every new chat window without re-briefing. See "Making it stick" below. | You (once) |
+| `Ravi_Python_LLM_Learning_Plan.md` | The 14-week map. **Single source of truth for the schedule.** | You (rarely) |
+| `docs/07-python-fundamentals.md` | Day-by-day beginner lessons for Weeks 1–3. **Start here.** | Nobody (reference) |
+| `PROGRESS.md` | The tracker (current state): checkboxes, deliverables, dates, mistakes log, applications, interview weak-spots. | **Claude, end of each session** |
+| `docs/01-daily-loop-and-tracker.md` | This file — how the system works and the trigger phrases. | You (rarely) |
+| `CLAUDE.md` | Persistent mentor rules, inherited by every subfolder, so Claude behaves the same in every new chat window. | You (rarely) |
 
-Everything else in the repo is **code you write** — the CLI tool, Django app, FastAPI service, CLI agent, and the flagship eval harness.
+Everything else in the repo is **code you write** — the fundamentals package, the CLI tool, the Flask service, the Django app, the FastAPI service, the CLI agent, and the flagship eval harness.
 
 ## The one rule that shapes everything: the CODE RULE (ABSOLUTE)
 
@@ -90,9 +86,9 @@ Claude recognizes intent, so slight wording changes are fine. These are the cano
 ### The override / "show me" escape hatch
 | Type this | What Claude does |
 |---|---|
-| `Override: show me` / `Show me the answer` | Deliberately suspends the no-code rule **for one specific thing**. Claude first warns you and gives one last hint. If you confirm, it shows a **minimal reference** — the smallest snippet that unblocks you — then **requires you to re-type it in your own file and explain it back**, and **logs the override** in the tracker so you can see how often you reach for it. |
+| `OVERRIDE CODE RULE: show me and I'll explain it back` | Deliberately suspends the no-code rule **for one specific thing**. Claude first gives one last hint. If you confirm, it shows a **minimal reference** — the smallest snippet that unblocks you — then **requires you to re-type it in your own file and explain it back**, and **logs the override** in the tracker. |
 
-Use the override rarely and on purpose. It exists so you're never truly stuck for hours — but every use is a signal of a gap, and the tracker keeps count. If overrides cluster on one topic, that's your next drill.
+Use the override rarely and on purpose. It exists so you're never truly stuck for hours — but every use is a signal of a gap, and the tracker keeps count. If overrides cluster on one topic, that's your next drill. The phrase must be typed verbatim; nothing else unlocks it (see `CLAUDE.md` §3).
 
 ### Tracking
 | Type this | What Claude does |
@@ -104,11 +100,11 @@ Use the override rarely and on purpose. It exists so you're never truly stuck fo
 
 ## How progress is tracked
 
-`PROGRESS.md` is the single source of truth. At every `Wrap up` (and any time you type `Update the tracker`), Claude will:
+`PROGRESS.md` is the single source of truth for **your current state** (the *schedule* lives in the plan file). At every `Wrap up` — and any time you type `Update the tracker` — Claude will:
 
 1. **Check off** the granular tasks you completed and stamp the **date done**.
-2. **Set status** on in-flight tasks (`TODO` / `WIP` / `DONE` / `BLOCKED` / `SKIP`).
-3. **Paste the GitHub link** into the deliverable row when a week's deliverable ships.
+2. **Set status** on in-flight tasks using the tracker's legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` cut/skipped.
+3. **Paste the GitHub link** into the deliverable row when a deliverable ships.
 4. **Append to the Recurring Mistakes log** any pattern it saw in your code (especially Ruby-isms leaking into Python).
 5. **Update Interview Weak Spots** based on how you did in the day's questions.
 6. **Log applications and overrides.**
@@ -117,20 +113,25 @@ You should be able to open `PROGRESS.md` cold on any morning and know exactly wh
 
 ## Weekly rhythm and deliverables
 
-Each week ends in **one GitHub deliverable**. The tracker's per-week table shows the granular steps; the Deliverables Summary shows the shippable artifacts. Cadence:
+Each phase ends in **one GitHub deliverable**. The authoritative week-by-week table lives in [`../Ravi_Python_LLM_Learning_Plan.md`](../Ravi_Python_LLM_Learning_Plan.md); the short version:
 
-- **Week 0:** working env (Python 3.12+, uv, VS Code + Pylance) **+ your first job application submitted.**
-- **Weeks 1–2:** Python-CLI file/JSON processor, type-hinted, passing pytest suite.
-- **Week 3:** Django + DRF app (2–3 models + REST API).
-- **Week 4:** Dockerized FastAPI + Pydantic service.
-- **Weeks 5–6:** CLI agent using function calling with 2–3 tools.
-- **Weeks 7–8:** flagship mini eval-harness (SWE-bench in miniature) + updated resume + applications to all 3 tracks.
+- **Week 0:** working env (Python 3.12+, uv, VS Code + Pylance) **+ your first job application.**
+- **Weeks 1–3:** Python fundamentals — one contact-book program grown from a print statement into a tested, typed, packaged CLI. **First Python repo on GitHub.**
+- **Weeks 4–5:** `evalctl` — typed, streaming CLI, plus the shared `contracts/` schemas.
+- **Week 6:** Flask ingestion & webhook service (your first web framework).
+- **Weeks 7–8:** Django + DRF platform core, including the N+1 before/after story.
+- **Week 9:** Dockerized FastAPI + Pydantic async gateway.
+- **Week 10:** SWE-bench methodology, Docker, reading real repos, first OSS PRs.
+- **Weeks 11–12:** CLI agent using function calling with 2–3 real tools.
+- **Weeks 13–14:** flagship mini eval-harness (SWE-bench in miniature) + resume + applications to all 3 tracks.
 
-Honest expectation setting is baked into the plan: one week each on Django/FastAPI makes you productive, not expert. For your target eval roles, **Weeks 5–6 matter most** — running and testing *other people's* code, not building web apps.
+Honest expectation setting is baked into the plan: one or two weeks on a framework makes you productive, not expert. For your target eval roles, **Weeks 10–14 matter most** — running and testing *other people's* code, not building web apps.
 
-## Making it stick across chat windows (recommended)
+## Making it stick across chat windows
 
-Because each new chat starts fresh, drop a short `CLAUDE.md` in the repo root that tells Claude, every time: the no-code rule is absolute, the escape hatch is `Override: show me`, treat Ravi as a senior dev (skip beginner pedagogy), run the daily loop, and keep `PROGRESS.md` current. Then any window you open behaves like the same mentor. (Ask Claude to help you draft `CLAUDE.md` in English — you'll still write any code yourself, but this file is config, not Python.)
+`CLAUDE.md` already exists in the repo root and does this automatically: the no-code rule is absolute, the escape hatch is the verbatim override phrase, the daily loop runs every session, and `PROGRESS.md` stays current. It is inherited in every subfolder, so any window you open behaves like the same mentor.
+
+One thing it is careful about, and you should be too: you are **senior at programming and a beginner at Python.** Those are different claims. Conflating them is exactly what produced an earlier curriculum that opened with `mypy --strict` before a single line of Python had been written.
 
 ## Getting the most out of it
 
@@ -139,216 +140,4 @@ Because each new chat starts fresh, drop a short `CLAUDE.md` in the repo root th
 - **Answer interview questions out loud / in writing before reading the talking points.** Half your target interviews grade how clearly you *explain*.
 - **Let the mistakes log drive review days.** Your recurring Ruby-isms are your personalized syllabus.
 - **Ship the deliverable even if imperfect.** A B-grade repo on GitHub beats an A-grade one still on your laptop.
-
----
-
----
-
-# (B) `PROGRESS.md` — Progress Tracker Template
-
-Copy everything below into `PROGRESS.md`. Claude keeps it updated.
-
----
-
-```markdown
-# Ravi — Python + LLM-Eval Progress Tracker
-
-Last updated: ____-__-__  ·  Updated by: Claude at session wrap-up
-
-## Snapshot
-- **Start date:** ____-__-__
-- **Current week:** Week __
-- **Today's focus:** ______________________________
-- **Next deliverable due:** ______________________________
-- **Sessions completed:** __  ·  **Current streak (days):** __
-- **Override ("show me") count:** __   ← keep this low; clusters = your next drill
-
-## Status legend
-`TODO` not started · `WIP` in progress · `DONE` complete · `BLOCKED` stuck (see notes) · `SKIP` deferred (see notes)
-Checkbox: `[ ]` open · `[x]` complete
-
----
-
-## Week 0 — Setup + First Application (2–3 days)
-Deliverable: working env + 1 job application submitted.
-
-| ✓ | Task | Status | Deliverable / Proof (URL or note) | Date Done |
-|---|---|---|---|---|
-| [ ] | Confirm Python 3.12+ available (3.14 installed — use it; 3.11 is too old) | TODO | | |
-| [ ] | Install `uv` | TODO | | |
-| [ ] | Set up VS Code + Pylance | TODO | | |
-| [ ] | Hello-world script runs | TODO | | |
-| [ ] | Create a venv (via uv) | TODO | | |
-| [ ] | Install a package into the venv | TODO | | |
-| [ ] | **Apply to LLM Trainer role (application #1)** | TODO | | |
-
----
-
-## Weeks 1–2 — Python for Someone Who Already Programs
-Deliverable: Python CLI tool (file/JSON processor) with type hints + passing pytest suite on GitHub.
-Goal: **think in Python, don't translate.**
-
-| ✓ | Task | Status | Deliverable / Proof | Date Done |
-|---|---|---|---|---|
-| [ ] | Ruby→Python syntax diffs: indentation, `None`/`True`/`False`, f-strings, no `end` | TODO | | |
-| [ ] | Data structures: list / dict / set / tuple (when to use which) | TODO | | |
-| [ ] | Comprehensions: list, dict, set | TODO | | |
-| [ ] | Type hints: `list[int]`, `dict[str, X]`, `Optional`, `\|` unions | TODO | | |
-| [ ] | Install + run `mypy` clean on your code | TODO | | |
-| [ ] | Stdlib tour: `collections`, `itertools` | TODO | | |
-| [ ] | Stdlib tour: `pathlib`, `datetime`, `json` | TODO | | |
-| [ ] | `dataclasses` | TODO | | |
-| [ ] | Context managers (`with`) — vs. Ruby blocks/ensure | TODO | | |
-| [ ] | Decorators | TODO | | |
-| [ ] | Generators (`yield`) | TODO | | |
-| [ ] | pytest: assertions (RSpec-style), fixtures, parametrize | TODO | | |
-| [ ] | Drill: rewrite Ruby script #1 in idiomatic Python | TODO | | |
-| [ ] | Drill: rewrite Ruby script #2 in idiomatic Python | TODO | | |
-| [ ] | **Deliverable: CLI file/JSON processor + type hints + passing pytest, pushed to GitHub** | TODO | repo: | |
-
----
-
-## Week 3 — Django (the Rails analog)
-Deliverable: Django + DRF app, 2–3 models + REST API on GitHub.
-
-| ✓ | Task | Status | Deliverable / Proof | Date Done |
-|---|---|---|---|---|
-| [ ] | Official polls tutorial parts 1–4 (typed, not copied) | TODO | | |
-| [ ] | Official polls tutorial parts 5–7 | TODO | | |
-| [ ] | Map Models = ActiveRecord; views/templates; `manage.py migrate` = `rails db:migrate`; free admin | TODO | | |
-| [ ] | ORM: querysets, relationships, migrations | TODO | | |
-| [ ] | `select_related` / `prefetch_related` (the N+1 fix) | TODO | | |
-| [ ] | DRF: serializers, viewsets, JSON API | TODO | | |
-| [ ] | Settings / apps / project structure | TODO | | |
-| [ ] | **Deliverable: Django + DRF app (2–3 models + REST API), pushed to GitHub** | TODO | repo: | |
-
----
-
-## Week 4 — FastAPI + Pydantic
-Deliverable: Dockerized FastAPI service w/ Pydantic models + endpoints on GitHub.
-Note: **learn Pydantic well — it's everywhere in LLM/eval work.**
-
-| ✓ | Task | Status | Deliverable / Proof | Date Done |
-|---|---|---|---|---|
-| [ ] | FastAPI tutorial top-to-bottom | TODO | | |
-| [ ] | Pydantic validation + schemas (deep) | TODO | | |
-| [ ] | Path + query params, request bodies | TODO | | |
-| [ ] | Dependency injection | TODO | | |
-| [ ] | Response models | TODO | | |
-| [ ] | `async` / `await` | TODO | | |
-| [ ] | SQLAlchemy basics | TODO | | |
-| [ ] | Auto OpenAPI / Swagger docs | TODO | | |
-| [ ] | Dockerize the service | TODO | | |
-| [ ] | **Deliverable: Dockerized FastAPI + Pydantic service, pushed to GitHub** | TODO | repo: | |
-
----
-
-## Weeks 5–6 — LLM + Evaluation Layer  ← MOST IMPORTANT FOR TARGET ROLES
-Deliverable: CLI agent (Python) using function calling with 2–3 tools on GitHub.
-
-| ✓ | Task | Status | Deliverable / Proof | Date Done |
-|---|---|---|---|---|
-| [ ] | Call the Anthropic API from Python | TODO | | |
-| [ ] | Call the OpenAI API from Python | TODO | | |
-| [ ] | Function calling end-to-end: define tools via JSON schema → model requests call → execute → feed result back → loop | TODO | | |
-| [ ] | The agent loop: decision → execution → observation → next | TODO | | |
-| [ ] | Study SWE-bench: tasks from real GitHub issues, verified by the repo's test suite | TODO | | |
-| [ ] | OSS lib #1: clone → Dockerize → get test suite running locally | TODO | repo: | |
-| [ ] | OSS lib #1: pick a closed issue + its fix PR → understand how tests verified it | TODO | | |
-| [ ] | OSS lib #2: clone → Dockerize → run tests → trace a fixed issue | TODO | repo: | |
-| [ ] | OSS lib #3 (optional): clone → Dockerize → run tests → trace a fixed issue | TODO | repo: | |
-| [ ] | Skill: read an unfamiliar codebase fast | TODO | | |
-| [ ] | **Deliverable: CLI agent w/ function calling + 2–3 tools, pushed to GitHub** | TODO | repo: | |
-
----
-
-## Weeks 7–8 — Flagship Portfolio + Apply
-Deliverable: flagship eval-harness repo + updated resume + applications to all 3 tracks.
-
-| ✓ | Task | Status | Deliverable / Proof | Date Done |
-|---|---|---|---|---|
-| [ ] | Flagship: takes an OSS repo → spins it up in Docker | TODO | repo: | |
-| [ ] | Flagship: applies a candidate code patch | TODO | | |
-| [ ] | Flagship: runs the test suite | TODO | | |
-| [ ] | Flagship: reports pass/fail with logs (SWE-bench in miniature) | TODO | | |
-| [ ] | Small OSS PR #1 | TODO | PR: | |
-| [ ] | Small OSS PR #2 | TODO | PR: | |
-| [ ] | Small OSS PR #3 (optional) | TODO | PR: | |
-| [ ] | Small OSS PR #4 (optional) | TODO | PR: | |
-| [ ] | Update resume: Python + LLM-eval section, **leading with MCP / function-calling / OAuth** | TODO | | |
-| [ ] | Apply — Track 1: LLM Trainer (Agent Function call) | TODO | | |
-| [ ] | Apply — Track 2: Senior Python Developer | TODO | | |
-| [ ] | Apply — Track 3: LLM Evaluation & Repository Validation | TODO | | |
-| [ ] | Prep AI video interview | TODO | | |
-| [ ] | Prep coding/analysis screen — practice explaining reasoning in clear English (half the grade) | TODO | | |
-
----
-
-## Deliverables Summary (the shippable artifacts)
-
-| Week | Deliverable | Status | GitHub URL | Shipped Date |
-|---|---|---|---|---|
-| 0 | Working env + application #1 | TODO | | |
-| 1–2 | Python CLI (file/JSON) + type hints + pytest | TODO | | |
-| 3 | Django + DRF app (2–3 models + REST API) | TODO | | |
-| 4 | Dockerized FastAPI + Pydantic service | TODO | | |
-| 5–6 | CLI agent w/ function calling (2–3 tools) | TODO | | |
-| 7–8 | Flagship mini eval-harness | TODO | | |
-| 7–8 | Updated resume (Python + LLM-eval) | TODO | | |
-
----
-
-## Recurring Mistakes / Notes Log  (Claude appends every session)
-
-The point of this log: your Ruby instincts leaking into Python. Recurring rows become warm-up drills (`Review my mistakes`).
-
-| Date | Mistake / Pattern | Ruby-ism behind it | Rule to remember | Status |
-|---|---|---|---|---|
-| _e.g. 2026-07-09_ | _Used a `for` loop where a comprehension was clearer_ | _Rails `.each` reflex_ | _Reach for list/dict comprehensions first_ | recurring |
-| | | | | |
-| | | | | |
-
-Status: `recurring` (still happening) · `resolved` (not seen in 3+ sessions)
-
----
-
-## Interview Weak Spots  (Claude maintains — drives `Grill me on X`)
-
-| Topic | Confidence (1–5) | Last tested | Notes / what to drill |
-|---|---|---|---|
-| Type hints & mypy | | | |
-| Comprehensions & generators | | | |
-| Context managers / decorators | | | |
-| pytest (fixtures, parametrize) | | | |
-| Django ORM & N+1 (select/prefetch) | | | |
-| Pydantic validation | | | |
-| async / await | | | |
-| Function calling / agent loop | | | |
-| Reading & testing unfamiliar repos | | | |
-| Explaining reasoning clearly (verbal) | | | |
-
----
-
-## Applications Log
-
-| Date | Role / Track | Company | Channel | Status | Notes |
-|---|---|---|---|---|---|
-| | LLM Trainer (Track 1) | | | applied | Week 0 first application |
-| | | | | | |
-
-Status values: `applied` · `screen` · `interview` · `offer` · `rejected` · `ghosted`
-
----
-
-## Override Log ("show me" escape hatch uses)
-
-| Date | Topic | What was shown | Why stuck | Re-typed & explained back? |
-|---|---|---|---|---|
-| | | | | |
-
-Clusters here = your next scheduled drill. Fewer over time = you're internalizing Python.
-```
-
----
-
-Both documents are self-contained and ready to paste. `README_MENTOR.md` governs behavior; `PROGRESS.md` is the living state Claude updates at every `Wrap up`. If you want, the next step is drafting the optional `CLAUDE.md` (English config, no Python) so every fresh chat window enforces the no-code rule and the daily loop automatically.
+- **Tooling is not progress.** Config work feels productive because it resembles Rails work you already know. If you're polishing configuration instead of writing Python, that's the signal — go write the program.

@@ -1,4 +1,4 @@
-# django-app/ — platform system of record  (Weeks 4–5)
+# django-app/ — platform system of record  (Weeks 7–8)
 
 **Premise:** the multi-tenant **system of record** for the platform, in Django + DRF. It models who evaluates what and stores every run's results: organizations, users with roles/permissions, projects, eval suites, test cases, model/provider configs, runs, and results. This is my Rails-analog showcase.
 
@@ -17,4 +17,4 @@
 
 **I scaffold this myself** (`uv init`, `django-admin startproject`, apps). Mentor guides, doesn't author.
 
-➡️ Full spec: [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/04-curriculum-weeks-0-4.md`](../docs/04-curriculum-weeks-0-4.md)
+➡️ Full spec: [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/04-curriculum-core-python-and-web.md`](../docs/04-curriculum-core-python-and-web.md)

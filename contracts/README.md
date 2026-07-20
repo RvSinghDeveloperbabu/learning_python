@@ -1,6 +1,6 @@
 # contracts/ — shared versioned wire schemas
 
-The single source of truth for the platform's domain shapes. I define these in **`foundations/` (Weeks 1–2)** and every other service conforms to them — this is what turns six projects that *rhyme* into **one platform with a versioned wire contract**.
+The single source of truth for the platform's domain shapes. I define these in **`foundations/` (Weeks 4–5)** and every other service conforms to them — this is what turns six projects that *rhyme* into **one platform with a versioned wire contract**.
 
 **What lives here:**
 - JSON Schema files for `test-case`, `run`, and `result`

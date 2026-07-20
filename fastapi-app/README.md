@@ -1,4 +1,4 @@
-# fastapi-app/ — async LLM gateway / eval-runner  (Week 6)
+# fastapi-app/ — async LLM gateway / eval-runner  (Week 9)
 
 **Premise:** the async door to expensive provider APIs. It accepts eval-run requests and orchestrates concurrent calls to LLM providers (Anthropic + OpenAI), validating everything with Pydantic v2. It handles fan-out, cost accounting, and resilience — the concerns that separate a toy async demo from a real gateway.
 
@@ -17,4 +17,4 @@
 
 **I scaffold this myself** (`uv init`, structure, Dockerfile). Mentor guides, doesn't author.
 
-➡️ Full spec: [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/05-curriculum-weeks-5-8.md`](../docs/05-curriculum-weeks-5-8.md)
+➡️ Full spec: [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/04-curriculum-core-python-and-web.md`](../docs/04-curriculum-core-python-and-web.md) (Week 9)

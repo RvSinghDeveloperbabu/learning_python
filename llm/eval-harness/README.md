@@ -1,4 +1,4 @@
-# llm/eval-harness/ — SWE-bench in miniature  (Weeks 9–10 · FLAGSHIP)
+# llm/eval-harness/ — SWE-bench in miniature  (Weeks 13–14 · FLAGSHIP)
 
 **Premise:** given a task spec (repo URL, base commit, a candidate code patch, and the test command), spin up a **Docker sandbox**, check out the repo, apply the patch, run the repo's test suite in isolation (with timeouts + resource limits), parse the results, and report **pass/fail with captured logs and artifacts**. This is SWE-bench in miniature — the exact daily motion of the repo-validation job.
 
@@ -18,4 +18,4 @@
 
 **I scaffold this myself** (`uv init`, structure, Dockerfile). Mentor guides, doesn't author.
 
-➡️ Full spec: [`../../docs/02-real-world-projects.md`](../../docs/02-real-world-projects.md) · Curriculum: [`../../docs/05-curriculum-weeks-5-8.md`](../../docs/05-curriculum-weeks-5-8.md)
+➡️ Full spec: [`../../docs/02-real-world-projects.md`](../../docs/02-real-world-projects.md) · Curriculum: [`../../docs/05-curriculum-llm-and-flagship.md`](../../docs/05-curriculum-llm-and-flagship.md)

@@ -1,4 +1,4 @@
-# foundations/ — `evalctl`  (Weeks 1–2)
+# foundations/ — `evalctl`  (Weeks 4–5)
 
 **Premise:** a typed command-line tool that ingests eval datasets and run logs (JSONL), validates them against a schema, filters/aggregates, computes metrics (pass rate, latency p50/p95, cost), and exports human + machine reports. This is my "think in Python" project and the data layer the rest of the platform consumes.
 
@@ -15,4 +15,4 @@
 
 **I scaffold this myself** as milestone 1: `uv init` here, set up `pyproject.toml`, package layout, and tooling. The mentor describes what belongs where — it does not write it.
 
-➡️ Full spec (architecture, milestones, testing, pitfalls): [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/04-curriculum-weeks-0-4.md`](../docs/04-curriculum-weeks-0-4.md)
+➡️ Full spec (architecture, milestones, testing, pitfalls): [`../docs/02-real-world-projects.md`](../docs/02-real-world-projects.md) · Curriculum: [`../docs/04-curriculum-core-python-and-web.md`](../docs/04-curriculum-core-python-and-web.md)
